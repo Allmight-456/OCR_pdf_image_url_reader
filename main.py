@@ -185,18 +185,33 @@ if st.session_state["ocr_result"]:
                     file_name=f"Output_{idx+1}.md",
                     mime="text/markdown"
                 )
-            # Inject custom CSS to change text color in the text area to orange
+            
+            # Inject custom CSS to change text color in the raw text area to orange
             st.markdown(
                 """
                 <style>
                 .stTextArea textarea {
                     color: orange;
-                    /* Optionally adjust font size or other styles if needed */
                     font-size: 16px;
                 }
                 </style>
                 """,
                 unsafe_allow_html=True
             )
-            # Display the OCR result in a scrollable text area (with default text color)
-            st.text_area("OCR Result Preview", result, height=700)
+            
+            # Create tabs for "Preview" (rendered markdown) and "Raw" (plain markdown text)
+            tab1, tab2 = st.tabs(["Preview", "Raw"])
+            with tab1:
+                # Create a styled container for the preview with borders
+                st.markdown(
+                    f"""
+                    <div style="border: 1px solid #ddd; border-radius: 4px; padding: 12px; 
+                            height: 650px; overflow-y: auto; background-color: black;">
+                        {result}
+                    </div>
+                    """, 
+                    unsafe_allow_html=True
+                )
+            with tab2:
+                st.text_area("Raw Markdown", result, height=650)
+

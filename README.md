@@ -1,26 +1,19 @@
-# Mistral OCR App
+# DocVision OCR
 
-The **Mistral OCR App** is a Streamlit-based web application that leverages the [Mistral OCR API](https://docs.mistralai.com/) to extract text from both PDF documents and images. Users can either provide a URL or upload a local file. The app displays the original document (or image) in a preview alongside the extracted OCR results and offers a seamless download option—all without refreshing the page.
+**DocVision OCR** is a powerful Streamlit-based web application that leverages the [Mistral OCR API](https://docs.mistralai.com/) to extract text from both PDF documents and images. Users can either provide a URL or upload a local file. The app displays the original document (or image) in a preview alongside the extracted OCR results with multiple download options.
 
-### 🚀 Try the Mistral OCR App Live!  
+## ✨ Features
 
-🔗 **Live Demo:** [Mistral OCR App](https://mistralocrai.streamlit.app/)  
+- **Multi-Format Support:** Process both PDFs and images (JPG, PNG formats)
+- **Flexible Input Methods:** Choose between URL input or local file uploads
+- **Real-Time Preview:** See your documents alongside the extracted text
+- **Multiple Export Options:** Download results in JSON, TXT, or Markdown formats
+- **Tabbed Results View:** Toggle between rendered preview and raw text
+- **Interactive Interface:** Clean, responsive design built with Streamlit
 
-Experience the power of **Mistral OCR** in action! Upload PDFs or images and extract text seamlessly with this interactive **Streamlit-based OCR app**.  
+![DocVision OCR App Demo](app.png)
 
-![Mistral OCR App Demo](demo.png)
-
-
-## Features
-
-- **Dual File Support:** Process both PDFs and images.
-- **Multiple Input Methods:** Choose between URL input or local file uploads.
-- **Real-Time Preview:** Display the original file (via an iframe for PDFs or using `st.image` for images).
-- **OCR Extraction:** Get OCR results presented in a clean, two-column layout.
-- **Downloadable Results:** Download the OCR output with a custom HTML link that avoids a full page refresh.
-- **Interactive Interface:** Built with Streamlit for a smooth and interactive user experience.
-
-## Installation
+## 🚀 Installation
 
 ### Prerequisites
 
@@ -33,8 +26,8 @@ Experience the power of **Mistral OCR** in action! Upload PDFs or images and ext
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/AIAnytime/Mistral-OCR-App.git
-   cd Mistral-OCR-App
+   git clone https://github.com/Allmight-456/OCR_pdf_image_url_reader.git
+   cd OCR_pdf_image_url_reader
    ```
 
 2. **Create and Activate a Virtual Environment (Optional but Recommended):**
@@ -78,62 +71,57 @@ Experience the power of **Mistral OCR** in action! Upload PDFs or images and ext
      set MISTRAL_API_KEY=your_api_key_here
      ```
 
-## Usage
-
-To run the app, use the following command:
-
-```bash
-streamlit run main.py
-```
-
-### How It Works
+## 📖 Usage
 
 1. **API Key Entry:**  
-   When you launch the app, you'll be prompted to enter your Mistral API key.
+   Enter your Mistral API key in the provided field.
 
 2. **File Type & Source Selection:**  
-   Choose whether you want to process a **PDF** or an **Image** and select the source type—either via a URL or by uploading a file.
+   Choose whether you want to process a **PDF** or an **Image** and select the source type—either via a URL or by uploading local files.
 
 3. **Processing:**  
-   Click the **Process** button to send the document to the Mistral OCR API. The app then:
-   - Displays a preview of the document in the left column.
-   - Shows the extracted OCR results in the right column.
-   - Provides a download link for the OCR output.
+   Click the **Process** button to extract text using Mistral's OCR technology. The app then:
+   - Displays the original document in the left panel
+   - Shows the extracted OCR results in the right panel with tabbed interface
+   - Provides multiple download formats for the extracted content
 
-4. **Download:**  
-   Click the download link to save the OCR result as a text file without refreshing the page.
+4. **Results and Download:**  
+   - View results in either "Preview" or "Raw" formats via the tab interface
+   - Download results in your preferred format (JSON, TXT, or MD) using the styled download buttons
+   - All downloads preserve application state without refreshing the page
+![DocVision OCR App Demo](output_raw.png)
 
-## Code Overview
+## 🔧 Code Overview
 
 - **main.py:**  
-  The main Streamlit application file that contains the logic for:
-  - User input handling (API key, file type, source type)
-  - Document preparation (base64 encoding for local uploads)
-  - Calling the Mistral OCR API
-  - Displaying the preview and OCR results
-  - Providing a custom download link
-
+  The main Streamlit application file that contains:
+  - User interface with custom styling and responsive layout
+  - Document handling for both URLs and local uploads
+  - Mistral OCR API integration
+  - Preview rendering with tabbed interface
+  - Multiple export format options with styled buttons
+  
 - **README.md:**  
-  This file, which provides detailed instructions and documentation for the project.
+  Project documentation with installation and usage instructions.
 
 - **requirements.txt:**  
-  A list of the required Python packages.
+  Required Python dependencies.
 
-## Contributing
+## 👨‍💻 Contributing
 
 Contributions are welcome! If you have suggestions or find issues, please feel free to:
 - Open an issue in the repository.
 - Submit a pull request with improvements or bug fixes.
 
-## License
+## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
 
-## Acknowledgements
+## 🙏 Acknowledgements
 
 - [Streamlit](https://streamlit.io/) for making interactive web app development easy.
 - [Mistralai](https://github.com/mistralai) for their powerful OCR API and Python client.
 
-## Contact
+## 📬 Contact
 
-For any questions or support, please open an issue in this repository or contact [sonu@aianytime.net].
+Created by [Allmight-456](https://github.com/Allmight-456). For any questions or support, please open an issue in the [GitHub repository](https://github.com/Allmight-456/OCR_pdf_image_url_reader).
