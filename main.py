@@ -5,12 +5,45 @@ import json
 import time
 from mistralai import Mistral
 
-st.set_page_config(layout="wide", page_title="Mistral OCR App", page_icon="🖥️")
-st.title("Mistral OCR App")
-st.markdown("<h3 style color: white;'>Built by <a href='https://github.com/AIAnytime'>AI Anytime with ❤️ </a></h3>", unsafe_allow_html=True)
-with st.expander("Expand Me"):
+st.set_page_config(layout="wide", page_title="DocVision OCR", page_icon="📄")
+
+# Add custom CSS for better styling
+st.markdown("""
+<style>
+    .main-header {
+        font-size: 2.5rem;
+        background: linear-gradient(90deg, #6366F1, #4F46E5);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+    }
+    .subheader {
+        color: #6B7280;
+        margin-bottom: 1.5rem;
+    }
+    .stExpander {
+        border-radius: 8px;
+        border: 1px solid #E5E7EB;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("<h1 class='main-header'>DocVision OCR</h1>", unsafe_allow_html=True)
+st.markdown("<p class='subheader'>Advanced document, image text extraction powered by Mistral AI</p>", unsafe_allow_html=True)
+
+# Replace the current tagline
+st.markdown("<div style='padding: 0.5rem; margin-bottom: 1rem; border-radius: 5px; background-color: #F3F4F6;'><p style='margin-bottom: 0; color: #4B5563; font-size: 0.9rem;'>Created by <a href='https://github.com/Allmight-456' style='color: #4F46E5; text-decoration: none;'>Allimght-456</a> • <i>Extracting wisdom from documents</i></p></div>", unsafe_allow_html=True)
+
+with st.expander("About DocVision"):
     st.markdown("""
-    This application allows you to extract information from pdf/image based on Mistral OCR. Built by AI Anytime.
+    ### Transform Documents into Structured Text
+    
+    DocVision harnesses the power of Mistral's OCR technology to extract text from:
+    - PDF documents (multi-page supported)
+    - Images (JPG, PNG formats)
+    - URL-based resources
+    
+    **Perfect for:** Document digitization, information extraction, and text analysis workflows.
     """)
 
 # 1. API Key Input
@@ -104,7 +137,6 @@ if st.button("Process"):
                 st.session_state["ocr_result"].append(result_text)
                 st.session_state["preview_src"].append(preview_src)
 
-# 5. Display Preview and OCR Results if available
 if st.session_state["ocr_result"]:
     for idx, result in enumerate(st.session_state["ocr_result"]):
         col1, col2 = st.columns(2)
@@ -112,7 +144,10 @@ if st.session_state["ocr_result"]:
         with col1:
             st.subheader(f"Input PDF {idx+1}")
             if file_type == "PDF":
-                pdf_embed_html = f'<iframe src="{st.session_state["preview_src"][idx]}" width="100%" height="800" frameborder="0"></iframe>'
+                pdf_embed_html = (
+                    f'<iframe src="{st.session_state["preview_src"][idx]}" '
+                    f'width="100%" height="800" frameborder="0"></iframe>'
+                )
                 st.markdown(pdf_embed_html, unsafe_allow_html=True)
             else:
                 if source_type == "Local Upload" and st.session_state["image_bytes"]:
@@ -123,15 +158,45 @@ if st.session_state["ocr_result"]:
         with col2:
             st.subheader(f"Download OCR results {idx+1}")
             
-            def create_download_link(data, filetype, filename):
-                b64 = base64.b64encode(data.encode()).decode()
-                href = f'<a href="data:{filetype};base64,{b64}" download="{filename}">Download {filename}</a>'
-                st.markdown(href, unsafe_allow_html=True)
+            # Arrange the download buttons horizontally using columns
+            btn_col1, btn_col2, btn_col3 = st.columns(3)
             
+            # Prepare JSON data (pretty printed)
             json_data = json.dumps({"ocr_result": result}, ensure_ascii=False, indent=2)
-            create_download_link(json_data, "application/json", f"Output_{idx+1}.json") # json output
-            create_download_link(result, "text/plain", f"Output_{idx+1}.txt") # plain text output
-            create_download_link(result, "text/markdown", f"Output_{idx+1}.md") # markdown output
-
-            # To preview results
-            st.write(st.session_state["ocr_result"])
+            
+            with btn_col1:
+                st.download_button(
+                    label="Download JSON",
+                    data=json_data,
+                    file_name=f"Output_{idx+1}.json",
+                    mime="application/json"
+                )
+            with btn_col2:
+                st.download_button(
+                    label="Download TXT",
+                    data=result,
+                    file_name=f"Output_{idx+1}.txt",
+                    mime="text/plain"
+                )
+            with btn_col3:
+                st.download_button(
+                    label="Download MD",
+                    data=result,
+                    file_name=f"Output_{idx+1}.md",
+                    mime="text/markdown"
+                )
+            # Inject custom CSS to change text color in the text area to orange
+            st.markdown(
+                """
+                <style>
+                .stTextArea textarea {
+                    color: orange;
+                    /* Optionally adjust font size or other styles if needed */
+                    font-size: 16px;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
+            # Display the OCR result in a scrollable text area (with default text color)
+            st.text_area("OCR Result Preview", result, height=700)
