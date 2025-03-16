@@ -1,8 +1,8 @@
 # DocVision OCR
 
 **DocVision OCR** is a powerful Streamlit-based web application that leverages the [Mistral OCR API](https://docs.mistralai.com/) to extract text from both PDF documents and images. Users can either provide a URL or upload a local file. The app displays the original document (or image) in a preview alongside the extracted OCR results with multiple download options.
-![DocVision OCR App Demo](app.png)
-
+[![DocVision OCR App Demo](app.png)](https://docvision.streamlit.app)
+[Checkout App](https://docvision.streamlit.app)
 ## ✨ Features
 
 - **Multi-Format Support:** Process both PDFs and images (JPG, PNG formats)
